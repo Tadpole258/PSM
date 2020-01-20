@@ -1,19 +1,38 @@
-import warnings 
+#!/usr/bin/env python3
+
+import sys
+import json
 import pandas as pd
 import numpy as np
-import json
 import patsy
 import scipy.stats as stats
 import matplotlib.pyplot as plt
 from statsmodels.genmod.generalized_linear_model import GLM
 import statsmodels.api as sm 
 import seaborn as sns
-import sys
+
+import warnings
 
 %matplotlib inline
 warnings.filterwarnings('ignore')
 
+#万能读取文件的方式
+for decode in ('gbk','utf-8','gb18030'):
+    try:    
+        pur_data = pd.read_csv('sales_purchase.csv',encoding=decode,error_bad_lines=False,index_col=0)
+        # pd_info.drop(['Unnamed: 0'],axis=1,inplace=True)
+        print('data-' +  decode + '-success!!')
+        break
+    except:
+        pass
 
+"""
+#字段相关系数热力图
+pur_corr = pur_data.corr()
+plt.subplots(figsize=(12, 12)) # 设置画面大小
+sns.heatmap(pur_corr, annot=True, vmax=1, square=True, cmap="Reds")
+plt.show()
+""""
 x_col = pd_bin.columns.tolist()[:-1]
 print(x_col)
 y_col = pd_bin.columns.tolist()[-1:]
